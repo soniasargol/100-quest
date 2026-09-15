@@ -800,13 +800,9 @@
       const item = document.createElement('div');
       item.className = 'entry-item';
       const songNames = state.songs.filter((n, si) => entry.songs && entry.songs[si]);
-      const time = entry.ts ? new Date(entry.ts).toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'}) : '';
-      const metaParts = [];
-      if(time) metaParts.push('logged ' + time);
-      if(entry.time) metaParts.push(entry.time + ' min');
       item.innerHTML = `
         <div class="entry-main">
-          <div class="entry-meta">${escapeHtml(metaParts.join(' · '))}</div>
+          ${entry.time ? `<div class="entry-meta">${escapeHtml(entry.time + ' min')}</div>` : ''}
           <div class="entry-songs">${songNames.length ? escapeHtml(songNames.join(', ')) : '<em>no songs checked</em>'}</div>
           ${entry.note ? `<div class="entry-note">${escapeHtml(entry.note)}</div>` : ''}
         </div>
