@@ -1,0 +1,22 @@
+{
+  "startDate": "2026-09-15",
+  "songs": [
+    "Won't Back Down — Tom Petty",
+    "Smells Like Teen Spirit — Nirvana",
+    "Sweet Child O' Mine — Guns N' Roses"
+  ],
+  "logs": {
+    "0": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 10,
+        "note": "practiced chords Em, D, G, C",
+        "ts": "2026-09-15T20:19:32.534Z"
+      }
+    ]
+  }
+}
