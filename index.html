@@ -353,6 +353,98 @@
   }
   .modal-song-check input{width:16px; height:16px; accent-color: var(--rust);}
   .modal-song-check span{font-size:0.95rem;}
+  .time-row{margin-bottom:12px;}
+  .time-row label{
+    display:block;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin-bottom: 5px;
+  }
+  .time-row input{
+    width:100%;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--parchment);
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    color: var(--ink);
+  }
+  .entries-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom: 16px;
+    max-height: 220px;
+    overflow-y:auto;
+  }
+  .entries-empty{
+    font-size:0.85rem;
+    color: var(--ink-soft);
+    font-style:italic;
+    padding: 4px 0 10px;
+  }
+  .entry-item{
+    background: var(--parchment);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 8px 10px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .entry-main{flex:1; min-width:0;}
+  .entry-meta{
+    font-size:0.72rem;
+    color: var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin-bottom:3px;
+  }
+  .entry-songs{
+    font-size:0.85rem;
+    color: var(--ink);
+    margin-bottom:3px;
+  }
+  .entry-note{
+    font-size:0.85rem;
+    color: var(--ink-soft);
+    font-style:italic;
+    word-wrap:break-word;
+  }
+  .entry-actions{
+    display:flex;
+    gap:2px;
+    align-self:flex-start;
+  }
+  .entry-delete{
+    background:none;
+    border:none;
+    color: var(--rust);
+    cursor:pointer;
+    font-size:1rem;
+    line-height:1;
+    padding:2px 4px;
+  }
+  .entry-delete[data-act="edit"]{color: var(--teal);}
+  .add-entry-title{
+    font-size:0.9rem;
+    color: var(--ink);
+    margin: 4px 0 10px;
+    font-family: Georgia, serif;
+  }
+  .owner-badge{
+    display:inline-block;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color: var(--teal);
+    border:1px solid var(--teal);
+    border-radius:3px;
+    padding:2px 6px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
   .modal textarea{
     width:100%;
     border: 1px solid var(--line);
@@ -408,7 +500,7 @@
 
   <div class="banner">
     <div class="eyebrow">a Struthless-style quest</div>
-    <h1>100 Days of Guitar</h1>
+    <h1>100 Days of Guitar<span class="owner-badge" id="ownerBadge" hidden>edit mode</span></h1>
     <p class="sub">Three songs. Zero prior background. A hundred small treasures instead of one big one.</p>
   </div>
 
@@ -417,7 +509,7 @@
   <div class="progress-card">
     <div class="progress-num" id="dayCounter">1<small>of 100</small></div>
     <div class="progress-meta">
-      <div class="streak">Current streak: <b id="streakNum">0 days</b> &nbsp;·&nbsp; Total practiced: <b id="totalNum">0 days</b></div>
+      <div class="streak">Current streak: <b id="streakNum">0 days</b> &nbsp;·&nbsp; Total practiced: <b id="totalNum">0 days</b> &nbsp;·&nbsp; Total time: <b id="totalTimeNum">0m</b></div>
       <div class="treasure-track"><div class="treasure-fill" id="treasureFill"></div></div>
     </div>
     <button class="log-today-btn" id="logTodayBtn">Log today's practice</button>
@@ -455,7 +547,9 @@
     </div>
   </div>
 
-  <div class="footer-actions">
+  <div class="footer-actions" id="ownerFooterActions" hidden>
+    <button id="publishBtn">publish log to site</button>
+    &nbsp;·&nbsp;
     <button id="exportBtn">back up my progress</button>
     &nbsp;·&nbsp;
     <button id="importBtn">restore from a backup</button>
@@ -468,13 +562,26 @@
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal">
     <h2 id="modalDayTitle">Day 1</h2>
-    <div class="modal-date" id="modalDateSub">Which songs did you touch today?</div>
-    <div class="modal-songs" id="modalSongs"></div>
-    <textarea id="modalNote" placeholder="Optional note — what did you work on?"></textarea>
+    <div class="modal-date" id="modalDateSub">Practice entries for this day</div>
+
+    <div class="entries-list" id="entriesList"></div>
+
+    <div id="addEntrySection" hidden>
+      <div class="add-entry-title" id="addEntryTitle">Add an entry</div>
+      <div class="modal-songs" id="modalSongs"></div>
+      <div class="time-row">
+        <label for="modalTime">Time practiced (minutes, optional)</label>
+        <input type="number" id="modalTime" min="0" step="1" placeholder="e.g. 20">
+      </div>
+      <textarea id="modalNote" placeholder="Optional note — what did you work on?"></textarea>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modalCancelEditBtn" hidden>Cancel edit</button>
+        <button class="btn btn-primary" id="modalSaveBtn">Add entry</button>
+      </div>
+    </div>
+
     <div class="modal-actions">
-      <button class="btn-clear" id="modalClearBtn">clear this day</button>
-      <button class="btn btn-ghost" id="modalCancelBtn">Cancel</button>
-      <button class="btn btn-primary" id="modalSaveBtn">Save</button>
+      <button class="btn btn-ghost" id="modalCancelBtn">Close</button>
     </div>
   </div>
 </div>
@@ -482,31 +589,72 @@
 <script>
 (function(){
   const STORAGE_KEY = 'guitar100_quest_v1';
+  const OWNER_KEY = 'guitar100_isOwner';
+  const PUBLIC_DATA_URL = 'data/logs.json';
   const TOTAL_DAYS = 100;
   const DEFAULT_SONGS = ["Won't Back Down — Tom Petty", "Smells Like Teen Spirit — Nirvana", "Sweet Child O' Mine — Guns N' Roses"];
 
-  function loadState(){
-    try{
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if(raw){
-        const parsed = JSON.parse(raw);
-        if(parsed && parsed.startDate) return parsed;
-      }
-    }catch(e){ console.warn('storage read failed', e); }
+  // dayIndex(string) -> array of entries: {songs:[bool,bool,bool], time:number|null, note:string, ts:ISOString}
+
+  function emptyState(){
     return {
       startDate: new Date().toISOString().slice(0,10),
       songs: DEFAULT_SONGS.slice(),
-      logs: {} // dayIndex(string) -> {songs:[bool,bool,bool], note:string}
+      logs: {}
     };
   }
 
+  // Older saved data had one log object per day instead of an array of entries.
+  function migrate(raw){
+    if(!raw || !raw.startDate) return emptyState();
+    const migrated = { startDate: raw.startDate, songs: raw.songs || DEFAULT_SONGS.slice(), logs: {} };
+    Object.entries(raw.logs || {}).forEach(([idx, log]) => {
+      if(Array.isArray(log)){
+        migrated.logs[idx] = log;
+      } else if(log && (log.songs || log.note)){
+        migrated.logs[idx] = [{ songs: log.songs || [], time: null, note: log.note || '', ts: new Date().toISOString() }];
+      }
+    });
+    return migrated;
+  }
+
+  function detectOwner(){
+    const params = new URLSearchParams(location.search);
+    if(params.get('edit') === '1'){
+      try{ localStorage.setItem(OWNER_KEY, '1'); }catch(e){}
+      params.delete('edit');
+      const clean = location.pathname + (params.toString() ? '?' + params.toString() : '') + location.hash;
+      history.replaceState(null, '', clean);
+    }
+    try{ return localStorage.getItem(OWNER_KEY) === '1'; }catch(e){ return false; }
+  }
+
+  const isOwner = detectOwner();
+
+  function loadLocalState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) return migrate(JSON.parse(raw));
+    }catch(e){ console.warn('storage read failed', e); }
+    return null;
+  }
+
+  async function fetchPublicState(){
+    try{
+      const res = await fetch(PUBLIC_DATA_URL, {cache:'no-store'});
+      if(!res.ok) return null;
+      return migrate(await res.json());
+    }catch(e){ console.warn('public log fetch failed', e); return null; }
+  }
+
   function saveState(){
+    if(!isOwner) return;
     try{
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }catch(e){ console.warn('storage write failed', e); }
   }
 
-  let state = loadState();
+  let state = emptyState();
 
   function dayIndexToday(){
     const start = new Date(state.startDate + 'T00:00:00');
@@ -545,10 +693,21 @@
 
   function countSongPractice(songIdx){
     let c = 0;
-    Object.values(state.logs).forEach(log => {
-      if(log.songs && log.songs[songIdx]) c++;
+    Object.values(state.logs).forEach(entries => {
+      if(Array.isArray(entries) && entries.some(e => e.songs && e.songs[songIdx])) c++;
     });
     return c;
+  }
+
+  function formatMinutes(total){
+    if(!total) return '0m';
+    const h = Math.floor(total/60), m = total%60;
+    return h ? `${h}h ${m}m` : `${m}m`;
+  }
+
+  function totalMinutesForDay(entries){
+    if(!Array.isArray(entries)) return 0;
+    return entries.reduce((sum, e) => sum + (Number(e.time) || 0), 0);
   }
 
   function escapeAttr(s){
@@ -565,6 +724,9 @@
     const totalLogged = Object.keys(state.logs).filter(k => hasActivity(state.logs[k])).length;
     document.getElementById('totalNum').textContent = totalLogged + ' day' + (totalLogged===1?'':'s');
 
+    const totalMinutes = Object.values(state.logs).reduce((sum, entries) => sum + totalMinutesForDay(entries), 0);
+    document.getElementById('totalTimeNum').textContent = formatMinutes(totalMinutes);
+
     // streak: consecutive days up to and including today with activity
     let streak = 0;
     for(let i = todayIdx; i >= 0; i--){
@@ -578,17 +740,14 @@
 
     const btn = document.getElementById('logTodayBtn');
     if(hasActivity(state.logs[todayIdx])){
-      btn.textContent = "Today logged ✓ — edit";
+      btn.textContent = "Today logged ✓ — add another entry";
     } else {
       btn.textContent = "Log today's practice";
     }
   }
 
-  function hasActivity(log){
-    if(!log) return false;
-    if(log.songs && log.songs.some(Boolean)) return true;
-    if(log.note && log.note.trim()) return true;
-    return false;
+  function hasActivity(entries){
+    return Array.isArray(entries) && entries.length > 0;
   }
 
   // ---------- Grid ----------
@@ -617,50 +776,140 @@
   const backdrop = document.getElementById('modalBackdrop');
   const modalSongs = document.getElementById('modalSongs');
   const modalNote = document.getElementById('modalNote');
+  const modalTime = document.getElementById('modalTime');
   const modalDayTitle = document.getElementById('modalDayTitle');
   const modalDateSub = document.getElementById('modalDateSub');
+  const entriesList = document.getElementById('entriesList');
+  const addEntrySection = document.getElementById('addEntrySection');
+  const addEntryTitle = document.getElementById('addEntryTitle');
+  const modalSaveBtn = document.getElementById('modalSaveBtn');
+  const modalCancelEditBtn = document.getElementById('modalCancelEditBtn');
   let currentModalDay = null;
+  let editingIndex = null;
+
+  function renderEntriesList(dayIdx){
+    const entries = state.logs[dayIdx] || [];
+    entriesList.innerHTML = '';
+    if(entries.length === 0){
+      entriesList.innerHTML = '<div class="entries-empty">No entries logged for this day yet.</div>';
+      return;
+    }
+    entries.forEach((entry, i) => {
+      const item = document.createElement('div');
+      item.className = 'entry-item';
+      const songNames = state.songs.filter((n, si) => entry.songs && entry.songs[si]);
+      const time = entry.ts ? new Date(entry.ts).toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'}) : '';
+      const metaParts = [];
+      if(time) metaParts.push('logged ' + time);
+      if(entry.time) metaParts.push(entry.time + ' min');
+      item.innerHTML = `
+        <div class="entry-main">
+          <div class="entry-meta">${escapeHtml(metaParts.join(' · '))}</div>
+          <div class="entry-songs">${songNames.length ? escapeHtml(songNames.join(', ')) : '<em>no songs checked</em>'}</div>
+          ${entry.note ? `<div class="entry-note">${escapeHtml(entry.note)}</div>` : ''}
+        </div>
+        ${isOwner ? `<div class="entry-actions"><button class="entry-delete" title="Edit entry" data-act="edit" data-i="${i}">✎</button><button class="entry-delete" title="Delete entry" data-act="delete" data-i="${i}">✕</button></div>` : ''}
+      `;
+      entriesList.appendChild(item);
+    });
+    if(isOwner){
+      entriesList.querySelectorAll('[data-act="delete"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = Number(btn.dataset.i);
+          state.logs[dayIdx].splice(i, 1);
+          if(state.logs[dayIdx].length === 0) delete state.logs[dayIdx];
+          if(editingIndex === i) startAdd();
+          saveState();
+          renderAll();
+          renderEntriesList(dayIdx);
+        });
+      });
+      entriesList.querySelectorAll('[data-act="edit"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          startEdit(dayIdx, Number(btn.dataset.i));
+        });
+      });
+    }
+  }
+
+  function buildSongChecks(checkedArr){
+    modalSongs.innerHTML = '';
+    state.songs.forEach((name, i) => {
+      const label = document.createElement('label');
+      label.className = 'modal-song-check';
+      label.innerHTML = `<input type="checkbox" data-idx="${i}" ${checkedArr && checkedArr[i] ? 'checked' : ''}/><span>${escapeHtml(name)}</span>`;
+      modalSongs.appendChild(label);
+    });
+  }
+
+  function startAdd(){
+    editingIndex = null;
+    addEntryTitle.textContent = 'Add an entry';
+    modalSaveBtn.textContent = 'Add entry';
+    modalCancelEditBtn.hidden = true;
+    buildSongChecks(null);
+    modalTime.value = '';
+    modalNote.value = '';
+  }
+
+  function startEdit(dayIdx, i){
+    const entry = state.logs[dayIdx][i];
+    if(!entry) return;
+    editingIndex = i;
+    addEntryTitle.textContent = 'Edit entry';
+    modalSaveBtn.textContent = 'Save changes';
+    modalCancelEditBtn.hidden = false;
+    buildSongChecks(entry.songs);
+    modalTime.value = entry.time != null ? entry.time : '';
+    modalNote.value = entry.note || '';
+  }
+
+  document.getElementById('modalCancelEditBtn').addEventListener('click', startAdd);
 
   function openModal(dayIdx){
     currentModalDay = dayIdx;
     modalDayTitle.textContent = 'Day ' + (dayIdx+1);
     modalDateSub.textContent = dayDateLabel(dayIdx);
-    const log = state.logs[dayIdx] || {songs:[false,false,false], note:''};
-    modalSongs.innerHTML = '';
-    state.songs.forEach((name, i) => {
-      const label = document.createElement('label');
-      label.className = 'modal-song-check';
-      label.innerHTML = `<input type="checkbox" data-idx="${i}" ${log.songs && log.songs[i] ? 'checked':''}/><span>${escapeHtml(name)}</span>`;
-      modalSongs.appendChild(label);
-    });
-    modalNote.value = log.note || '';
+    renderEntriesList(dayIdx);
+
+    const todayIdx = dayIndexToday();
+    if(isOwner && dayIdx <= todayIdx){
+      addEntrySection.hidden = false;
+      startAdd();
+    } else {
+      addEntrySection.hidden = true;
+    }
     backdrop.classList.add('open');
   }
 
   function closeModal(){
     backdrop.classList.remove('open');
     currentModalDay = null;
+    editingIndex = null;
   }
 
   document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
   backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeModal(); });
 
-  document.getElementById('modalSaveBtn').addEventListener('click', () => {
+  modalSaveBtn.addEventListener('click', () => {
     if(currentModalDay === null) return;
     const checks = Array.from(modalSongs.querySelectorAll('input[type=checkbox]'));
     const songsBool = checks.map(c => c.checked);
-    state.logs[currentModalDay] = { songs: songsBool, note: modalNote.value.trim() };
-    saveState();
-    renderAll();
-    closeModal();
-  });
+    const minutes = modalTime.value ? Math.max(0, parseInt(modalTime.value, 10) || 0) : null;
+    const note = modalNote.value.trim();
 
-  document.getElementById('modalClearBtn').addEventListener('click', () => {
-    if(currentModalDay === null) return;
-    delete state.logs[currentModalDay];
+    if(editingIndex !== null){
+      const existing = state.logs[currentModalDay][editingIndex];
+      state.logs[currentModalDay][editingIndex] = { ...existing, songs: songsBool, time: minutes, note };
+    } else {
+      const entry = { songs: songsBool, time: minutes, note, ts: new Date().toISOString() };
+      if(!state.logs[currentModalDay]) state.logs[currentModalDay] = [];
+      state.logs[currentModalDay].push(entry);
+    }
     saveState();
     renderAll();
-    closeModal();
+    renderEntriesList(currentModalDay);
+    startAdd();
   });
 
   document.getElementById('logTodayBtn').addEventListener('click', () => {
@@ -669,12 +918,8 @@
   });
 
   document.getElementById('resetBtn').addEventListener('click', () => {
-    if(confirm('Reset this quest? This clears all logged days and song names.')){
-      state = {
-        startDate: new Date().toISOString().slice(0,10),
-        songs: DEFAULT_SONGS.slice(),
-        logs: {}
-      };
+    if(confirm('Reset this quest? This clears all logged days and song names on this device.')){
+      state = emptyState();
       saveState();
       renderAll();
     }
@@ -703,6 +948,23 @@
     }
   });
 
+  document.getElementById('publishBtn').addEventListener('click', () => {
+    try{
+      const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'logs.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert('Downloaded logs.json — send it over (or tell Claude) to replace data/logs.json in the repo and push, so the live site updates.');
+    }catch(e){
+      alert('Could not create logs.json: ' + e.message);
+    }
+  });
+
   const importFile = document.getElementById('importFile');
   document.getElementById('importBtn').addEventListener('click', () => importFile.click());
   importFile.addEventListener('change', (e) => {
@@ -717,11 +979,7 @@
           return;
         }
         if(confirm('Restore this backup? It will replace your current progress on this device.')){
-          state = {
-            startDate: parsed.startDate,
-            songs: DEFAULT_SONGS.slice(),
-            logs: parsed.logs || {}
-          };
+          state = migrate(parsed);
           saveState();
           renderAll();
         }
@@ -733,7 +991,29 @@
     importFile.value = '';
   });
 
-  renderAll();
+  // ---------- Init ----------
+  async function init(){
+    document.getElementById('ownerBadge').hidden = !isOwner;
+    document.getElementById('ownerFooterActions').hidden = !isOwner;
+    document.getElementById('logTodayBtn').hidden = !isOwner;
+
+    if(isOwner){
+      const local = loadLocalState();
+      if(local){
+        state = local;
+      } else {
+        const pub = await fetchPublicState();
+        state = pub || emptyState();
+        saveState();
+      }
+    } else {
+      const pub = await fetchPublicState();
+      state = pub || emptyState();
+    }
+    renderAll();
+  }
+
+  init();
 })();
 </script>
 </body>
