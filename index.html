@@ -140,17 +140,14 @@
     margin-bottom: 6px;
     font-family: Georgia, serif;
   }
-  .song-slot input[type=text]{
-    width:100%;
-    border:none;
-    border-bottom: 1px solid var(--line);
-    background:transparent;
+  .song-name{
     font-family: inherit;
     font-size: 1.05rem;
     color: var(--ink);
     padding: 4px 0;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.3;
   }
-  .song-slot input[type=text]:focus{outline:none;border-bottom-color: var(--rust);}
   .song-bar-track{
     height:6px;
     background: var(--day-empty);
@@ -459,7 +456,12 @@
   </div>
 
   <div class="footer-actions">
+    <button id="exportBtn">back up my progress</button>
+    &nbsp;·&nbsp;
+    <button id="importBtn">restore from a backup</button>
+    &nbsp;·&nbsp;
     <button id="resetBtn">reset this quest</button>
+    <input type="file" id="importFile" accept="application/json" style="display:none;">
   </div>
 </div>
 
@@ -481,7 +483,7 @@
 (function(){
   const STORAGE_KEY = 'guitar100_quest_v1';
   const TOTAL_DAYS = 100;
-  const DEFAULT_SONGS = ['Song 1','Song 2','Song 3'];
+  const DEFAULT_SONGS = ["Won't Back Down — Tom Petty", "Smells Like Teen Spirit — Nirvana", "Sweet Child O' Mine — Guns N' Roses"];
 
   function loadState(){
     try{
@@ -533,19 +535,11 @@
       slot.className = 'song-slot';
       slot.innerHTML = `
         <label>Song ${i+1}</label>
-        <input type="text" value="${escapeAttr(name)}" data-idx="${i}" maxlength="60"/>
+        <div class="song-name">${escapeHtml(name)}</div>
         <div class="song-bar-track"><div class="song-bar-fill" style="width:${pct}%"></div></div>
         <div class="song-count">${count} day${count===1?'':'s'} practiced</div>
       `;
       songsRow.appendChild(slot);
-    });
-    songsRow.querySelectorAll('input[type=text]').forEach(inp => {
-      inp.addEventListener('change', e => {
-        const idx = parseInt(e.target.dataset.idx,10);
-        state.songs[idx] = e.target.value.trim() || DEFAULT_SONGS[idx];
-        saveState();
-        renderSongs();
-      });
     });
   }
 
@@ -691,6 +685,53 @@
     renderProgress();
     renderGrid();
   }
+
+  // ---------- Backup / restore ----------
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    try{
+      const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'guitar-quest-backup.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }catch(e){
+      alert('Could not create backup file: ' + e.message);
+    }
+  });
+
+  const importFile = document.getElementById('importFile');
+  document.getElementById('importBtn').addEventListener('click', () => importFile.click());
+  importFile.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try{
+        const parsed = JSON.parse(evt.target.result);
+        if(!parsed || !parsed.startDate || !parsed.logs){
+          alert('That file doesn\'t look like a valid backup.');
+          return;
+        }
+        if(confirm('Restore this backup? It will replace your current progress on this device.')){
+          state = {
+            startDate: parsed.startDate,
+            songs: DEFAULT_SONGS.slice(),
+            logs: parsed.logs || {}
+          };
+          saveState();
+          renderAll();
+        }
+      }catch(err){
+        alert('Could not read that file: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+    importFile.value = '';
+  });
 
   renderAll();
 })();
