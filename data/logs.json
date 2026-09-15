@@ -16,6 +16,16 @@
         "time": 10,
         "note": "practiced chords Em, D, G, C",
         "ts": "2026-09-15T20:19:32.534Z"
+      },
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 5,
+        "note": "C is the most challenging one, and transition between chords needs work",
+        "ts": "2026-09-15T23:19:11.189Z"
       }
     ]
   }
