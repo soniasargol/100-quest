@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 100-Day Guitar Quest</title>
+<style>
+  :root{
+    --parchment:#EFE3C8;
+    --parchment-deep:#E4D3AC;
+    --card:#FBF5E4;
+    --ink:#2C2417;
+    --ink-soft:#5C4E38;
+    --gold:#B8860B;
+    --gold-deep:#8C6607;
+    --rust:#A2472F;
+    --teal:#2D5C57;
+    --line:#C9B788;
+    --day-empty:#DCCBA0;
+    --day-done:#5F8A5A;
+    --shadow: 2px 2px 0 rgba(44,36,23,0.18);
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark){
+      --parchment:#22201B;
+      --parchment-deep:#191712;
+      --card:#2B2820;
+      --ink:#EDE3CC;
+      --ink-soft:#BBA97F;
+      --gold:#D9A93C;
+      --gold-deep:#E8C46B;
+      --rust:#D9704F;
+      --teal:#6FB2A8;
+      --line:#4A4436;
+      --day-empty:#3A362A;
+      --day-done:#4C7A48;
+      --shadow: 2px 2px 0 rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+      --parchment:#22201B;
+      --parchment-deep:#191712;
+      --card:#2B2820;
+      --ink:#EDE3CC;
+      --ink-soft:#BBA97F;
+      --gold:#D9A93C;
+      --gold-deep:#E8C46B;
+      --rust:#D9704F;
+      --teal:#6FB2A8;
+      --line:#4A4436;
+      --day-empty:#3A362A;
+      --day-done:#4C7A48;
+      --shadow: 2px 2px 0 rgba(0,0,0,0.4);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--parchment);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(184,134,11,0.06), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(45,92,87,0.06), transparent 40%);
+    color:var(--ink);
+    font-family: 'Iowan Old Style','Palatino Linotype', Georgia, 'Times New Roman', serif;
+    min-height:100vh;
+    padding: 28px 16px 60px;
+  }
+
+  @font-face{
+    font-family:'DisplaySerif';
+    src: local('Georgia');
+  }
+
+  .wrap{max-width:920px;margin:0 auto;}
+
+  /* Header */
+  .banner{
+    text-align:center;
+    margin-bottom: 30px;
+  }
+  .banner .eyebrow{
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .banner h1{
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.1rem);
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    position:relative;
+    display:inline-block;
+  }
+  .banner h1::before, .banner h1::after{
+    content:"◆";
+    color: var(--gold);
+    font-size: 0.9rem;
+    vertical-align: middle;
+    margin: 0 14px;
+  }
+  .banner .sub{
+    margin-top: 10px;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 520px;
+    margin-left:auto;
+    margin-right:auto;
+    line-height:1.5;
+  }
+
+  /* Songs setup */
+  .songs-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin: 22px 0 30px;
+  }
+  .song-slot{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+    padding: 14px 18px;
+    min-width: 220px;
+    flex: 1 1 220px;
+    max-width: 280px;
+  }
+  .song-slot label{
+    display:block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold-deep);
+    margin-bottom: 6px;
+    font-family: Georgia, serif;
+  }
+  .song-slot input[type=text]{
+    width:100%;
+    border:none;
+    border-bottom: 1px solid var(--line);
+    background:transparent;
+    font-family: inherit;
+    font-size: 1.05rem;
+    color: var(--ink);
+    padding: 4px 0;
+  }
+  .song-slot input[type=text]:focus{outline:none;border-bottom-color: var(--rust);}
+  .song-bar-track{
+    height:6px;
+    background: var(--day-empty);
+    border-radius:3px;
+    margin-top:10px;
+    overflow:hidden;
+  }
+  .song-bar-fill{
+    height:100%;
+    background: var(--teal);
+    width:0%;
+    transition: width 0.4s ease;
+  }
+  .song-count{
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    margin-top:5px;
+  }
+
+  /* Progress hero */
+  .progress-card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+    padding: 22px 26px;
+    margin-bottom: 30px;
+    display:flex;
+    align-items:center;
+    gap: 26px;
+    flex-wrap:wrap;
+  }
+  .progress-num{
+    font-family: Georgia, serif;
+    font-weight:700;
+    font-size: 3rem;
+    color: var(--rust);
+    line-height:1;
+    min-width: 130px;
+  }
+  .progress-num small{
+    display:block;
+    font-size:0.9rem;
+    font-weight:400;
+    color: var(--ink-soft);
+    margin-top:4px;
+    font-family: inherit;
+  }
+  .progress-meta{flex:1; min-width:220px;}
+  .progress-meta .streak{
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .progress-meta .streak b{color:var(--teal);}
+  .treasure-track{
+    height: 14px;
+    background: var(--day-empty);
+    border-radius: 8px;
+    overflow:hidden;
+    border: 1px solid var(--line);
+  }
+  .treasure-fill{
+    height:100%;
+    background: linear-gradient(90deg, var(--gold), var(--rust));
+    width:0%;
+    transition: width 0.5s ease;
+  }
+  .log-today-btn{
+    background: var(--rust);
+    color: #FBF5E4;
+    border:none;
+    padding: 12px 22px;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    border-radius: 3px;
+    cursor:pointer;
+    box-shadow: var(--shadow);
+    white-space:nowrap;
+  }
+  .log-today-btn:hover{background: var(--gold-deep);}
+  .log-today-btn:disabled{background: var(--day-done); cursor:default;}
+
+  /* Section headers */
+  .section-title{
+    font-family: Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin: 40px 0 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-title .rule{flex:1; height:1px; background: var(--line);}
+
+  /* Calendar grid */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+  }
+  .day-cell{
+    aspect-ratio: 1;
+    background: var(--day-empty);
+    border-radius: 3px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    cursor:pointer;
+    position:relative;
+    border: 1px solid transparent;
+    transition: transform 0.1s ease;
+  }
+  .day-cell:hover{ transform: scale(1.08); border-color: var(--gold); z-index:2;}
+  .day-cell.done{ background: var(--day-done); color:#F4F0DF; font-weight:600;}
+  .day-cell.today{ box-shadow: 0 0 0 2px var(--rust); }
+  .day-cell.future{ opacity:0.55; cursor:default;}
+  .day-cell.future:hover{transform:none; border-color:transparent;}
+
+  /* Toolkit cards */
+  .toolkit{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap: 14px;
+  }
+  .toolkit-card{
+    background: var(--card);
+    border-left: 4px solid var(--rust);
+    border-radius: 2px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .toolkit-card:nth-child(2){border-left-color: var(--teal);}
+  .toolkit-card:nth-child(3){border-left-color: var(--gold);}
+  .toolkit-card:nth-child(4){border-left-color: #7A6BA8;}
+  .toolkit-card:nth-child(5){border-left-color: #B0724E;}
+  .toolkit-card h3{
+    margin: 0 0 6px;
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+  }
+  .toolkit-card p{
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .toolkit-card .tag{
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+    display:block;
+  }
+
+  /* Modal */
+  .modal-backdrop{
+    display:none;
+    position:fixed; inset:0;
+    background: rgba(20,16,8,0.5);
+    align-items:center; justify-content:center;
+    z-index: 50;
+    padding: 20px;
+  }
+  .modal-backdrop.open{display:flex;}
+  .modal{
+    background: var(--card);
+    border-radius: 4px;
+    padding: 26px;
+    max-width: 420px;
+    width:100%;
+    box-shadow: 0 10px 0 rgba(44,36,23,0.15);
+    border: 1px solid var(--line);
+  }
+  .modal h2{
+    font-family: Georgia, serif;
+    margin: 0 0 4px;
+    font-size:1.3rem;
+  }
+  .modal .modal-date{
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+  .modal-songs{
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .modal-song-check{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--parchment);
+    border-radius: 3px;
+    cursor:pointer;
+    border: 1px solid var(--line);
+  }
+  .modal-song-check input{width:16px; height:16px; accent-color: var(--rust);}
+  .modal-song-check span{font-size:0.95rem;}
+  .modal textarea{
+    width:100%;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--parchment);
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    resize: vertical;
+    min-height: 50px;
+    color: var(--ink);
+  }
+  .modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top: 18px;
+    justify-content:flex-end;
+  }
+  .btn{
+    font-family: Georgia, serif;
+    padding: 9px 18px;
+    border-radius: 3px;
+    border:none;
+    cursor:pointer;
+    font-size: 0.92rem;
+  }
+  .btn-primary{background: var(--rust); color:#FBF5E4;}
+  .btn-primary:hover{background: var(--gold-deep);}
+  .btn-ghost{background:transparent; color: var(--ink-soft); border:1px solid var(--line);}
+  .btn-ghost:hover{background: var(--parchment);}
+  .btn-clear{background:transparent; color:var(--rust); text-decoration:underline; font-size:0.8rem; padding:4px;}
+
+  .footer-actions{
+    text-align:center;
+    margin-top: 40px;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+  }
+  .footer-actions button{
+    background:none;border:none;color:var(--ink-soft);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:inherit;
+  }
+
+  @media (max-width:600px){
+    .grid{grid-template-columns: repeat(7,1fr);}
+    .day-cell{font-size:0.6rem;}
+    .progress-card{flex-direction:column; align-items:flex-start;}
+    .log-today-btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="banner">
+    <div class="eyebrow">a Struthless-style quest</div>
+    <h1>100 Days of Guitar</h1>
+    <p class="sub">Three songs. Zero prior background. A hundred small treasures instead of one big one.</p>
+  </div>
+
+  <div class="songs-row" id="songsRow"></div>
+
+  <div class="progress-card">
+    <div class="progress-num" id="dayCounter">1<small>of 100</small></div>
+    <div class="progress-meta">
+      <div class="streak">Current streak: <b id="streakNum">0 days</b> &nbsp;·&nbsp; Total practiced: <b id="totalNum">0 days</b></div>
+      <div class="treasure-track"><div class="treasure-fill" id="treasureFill"></div></div>
+    </div>
+    <button class="log-today-btn" id="logTodayBtn">Log today's practice</button>
+  </div>
+
+  <div class="section-title"><span>The Map</span><div class="rule"></div></div>
+  <div class="grid" id="dayGrid"></div>
+
+  <div class="section-title"><span>Your Toolkit</span><div class="rule"></div></div>
+  <div class="toolkit">
+    <div class="toolkit-card">
+      <span class="tag">vs. Procrastination — Quicksand</span>
+      <h3>Build the muscle on tiny stuff</h3>
+      <p>Some days the win is just picking up the guitar for 60 seconds. That's enough. Momentum starts smaller than you think.</p>
+    </div>
+    <div class="toolkit-card">
+      <span class="tag">vs. Self-doubt — Underdog</span>
+      <h3>Compare to day-1 you, not a guitarist</h3>
+      <p>You have zero background — that's the whole point of the story. Practice hungry for your own respect, not applause.</p>
+    </div>
+    <div class="toolkit-card">
+      <span class="tag">vs. Not enough time — Eleventh hour</span>
+      <h3>Lower the bar, just do 5 minutes</h3>
+      <p>A messy 5-minute shitty-first-draft session still counts as a logged day. Get excited by the challenge, not the clock.</p>
+    </div>
+    <div class="toolkit-card">
+      <span class="tag">vs. Distraction — Siren song</span>
+      <h3>Go full Ulysses</h3>
+      <p>Leave the guitar out in plain sight, put your phone in another room before you sit down. Remove the choice entirely.</p>
+    </div>
+    <div class="toolkit-card">
+      <span class="tag">vs. Perfectionism — Treasure</span>
+      <h3>The roughest of rough maps is fine</h3>
+      <p>A rough, recognizable version of each song by day 100 is the actual goal. Big treasure — one perfect performance — is a lie.</p>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <button id="resetBtn">reset this quest</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2 id="modalDayTitle">Day 1</h2>
+    <div class="modal-date" id="modalDateSub">Which songs did you touch today?</div>
+    <div class="modal-songs" id="modalSongs"></div>
+    <textarea id="modalNote" placeholder="Optional note — what did you work on?"></textarea>
+    <div class="modal-actions">
+      <button class="btn-clear" id="modalClearBtn">clear this day</button>
+      <button class="btn btn-ghost" id="modalCancelBtn">Cancel</button>
+      <button class="btn btn-primary" id="modalSaveBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'guitar100_quest_v1';
+  const TOTAL_DAYS = 100;
+  const DEFAULT_SONGS = ['Song 1','Song 2','Song 3'];
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        const parsed = JSON.parse(raw);
+        if(parsed && parsed.startDate) return parsed;
+      }
+    }catch(e){ console.warn('storage read failed', e); }
+    return {
+      startDate: new Date().toISOString().slice(0,10),
+      songs: DEFAULT_SONGS.slice(),
+      logs: {} // dayIndex(string) -> {songs:[bool,bool,bool], note:string}
+    };
+  }
+
+  function saveState(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }catch(e){ console.warn('storage write failed', e); }
+  }
+
+  let state = loadState();
+
+  function dayIndexToday(){
+    const start = new Date(state.startDate + 'T00:00:00');
+    const now = new Date();
+    const startMid = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    const nowMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const diff = Math.floor((nowMid - startMid) / 86400000);
+    return diff; // 0-based
+  }
+
+  function dayDateLabel(idx){
+    const start = new Date(state.startDate + 'T00:00:00');
+    const d = new Date(start);
+    d.setDate(d.getDate() + idx);
+    return d.toLocaleDateString(undefined, {weekday:'short', month:'short', day:'numeric'});
+  }
+
+  // ---------- Songs row ----------
+  const songsRow = document.getElementById('songsRow');
+  function renderSongs(){
+    songsRow.innerHTML = '';
+    state.songs.forEach((name, i) => {
+      const count = countSongPractice(i);
+      const pct = Math.min(100, Math.round((count / TOTAL_DAYS) * 100));
+      const slot = document.createElement('div');
+      slot.className = 'song-slot';
+      slot.innerHTML = `
+        <label>Song ${i+1}</label>
+        <input type="text" value="${escapeAttr(name)}" data-idx="${i}" maxlength="60"/>
+        <div class="song-bar-track"><div class="song-bar-fill" style="width:${pct}%"></div></div>
+        <div class="song-count">${count} day${count===1?'':'s'} practiced</div>
+      `;
+      songsRow.appendChild(slot);
+    });
+    songsRow.querySelectorAll('input[type=text]').forEach(inp => {
+      inp.addEventListener('change', e => {
+        const idx = parseInt(e.target.dataset.idx,10);
+        state.songs[idx] = e.target.value.trim() || DEFAULT_SONGS[idx];
+        saveState();
+        renderSongs();
+      });
+    });
+  }
+
+  function countSongPractice(songIdx){
+    let c = 0;
+    Object.values(state.logs).forEach(log => {
+      if(log.songs && log.songs[songIdx]) c++;
+    });
+    return c;
+  }
+
+  function escapeAttr(s){
+    return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  }
+  function escapeHtml(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ---------- Progress ----------
+  function renderProgress(){
+    const todayIdx = Math.max(0, Math.min(TOTAL_DAYS-1, dayIndexToday()));
+    document.getElementById('dayCounter').innerHTML = (todayIdx+1) + '<small>of 100</small>';
+    const totalLogged = Object.keys(state.logs).filter(k => hasActivity(state.logs[k])).length;
+    document.getElementById('totalNum').textContent = totalLogged + ' day' + (totalLogged===1?'':'s');
+
+    // streak: consecutive days up to and including today with activity
+    let streak = 0;
+    for(let i = todayIdx; i >= 0; i--){
+      if(hasActivity(state.logs[i])) streak++;
+      else break;
+    }
+    document.getElementById('streakNum').textContent = streak + ' day' + (streak===1?'':'s');
+
+    const pct = Math.min(100, Math.round((totalLogged / TOTAL_DAYS) * 100));
+    document.getElementById('treasureFill').style.width = pct + '%';
+
+    const btn = document.getElementById('logTodayBtn');
+    if(hasActivity(state.logs[todayIdx])){
+      btn.textContent = "Today logged ✓ — edit";
+    } else {
+      btn.textContent = "Log today's practice";
+    }
+  }
+
+  function hasActivity(log){
+    if(!log) return false;
+    if(log.songs && log.songs.some(Boolean)) return true;
+    if(log.note && log.note.trim()) return true;
+    return false;
+  }
+
+  // ---------- Grid ----------
+  const grid = document.getElementById('dayGrid');
+  function renderGrid(){
+    grid.innerHTML = '';
+    const todayIdx = dayIndexToday();
+    for(let i=0;i<TOTAL_DAYS;i++){
+      const cell = document.createElement('div');
+      cell.className = 'day-cell';
+      cell.textContent = i+1;
+      const log = state.logs[i];
+      if(hasActivity(log)) cell.classList.add('done');
+      if(i === todayIdx) cell.classList.add('today');
+      if(i > todayIdx) cell.classList.add('future');
+      cell.title = dayDateLabel(i);
+      cell.addEventListener('click', () => {
+        if(i > todayIdx) return;
+        openModal(i);
+      });
+      grid.appendChild(cell);
+    }
+  }
+
+  // ---------- Modal ----------
+  const backdrop = document.getElementById('modalBackdrop');
+  const modalSongs = document.getElementById('modalSongs');
+  const modalNote = document.getElementById('modalNote');
+  const modalDayTitle = document.getElementById('modalDayTitle');
+  const modalDateSub = document.getElementById('modalDateSub');
+  let currentModalDay = null;
+
+  function openModal(dayIdx){
+    currentModalDay = dayIdx;
+    modalDayTitle.textContent = 'Day ' + (dayIdx+1);
+    modalDateSub.textContent = dayDateLabel(dayIdx);
+    const log = state.logs[dayIdx] || {songs:[false,false,false], note:''};
+    modalSongs.innerHTML = '';
+    state.songs.forEach((name, i) => {
+      const label = document.createElement('label');
+      label.className = 'modal-song-check';
+      label.innerHTML = `<input type="checkbox" data-idx="${i}" ${log.songs && log.songs[i] ? 'checked':''}/><span>${escapeHtml(name)}</span>`;
+      modalSongs.appendChild(label);
+    });
+    modalNote.value = log.note || '';
+    backdrop.classList.add('open');
+  }
+
+  function closeModal(){
+    backdrop.classList.remove('open');
+    currentModalDay = null;
+  }
+
+  document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
+  backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeModal(); });
+
+  document.getElementById('modalSaveBtn').addEventListener('click', () => {
+    if(currentModalDay === null) return;
+    const checks = Array.from(modalSongs.querySelectorAll('input[type=checkbox]'));
+    const songsBool = checks.map(c => c.checked);
+    state.logs[currentModalDay] = { songs: songsBool, note: modalNote.value.trim() };
+    saveState();
+    renderAll();
+    closeModal();
+  });
+
+  document.getElementById('modalClearBtn').addEventListener('click', () => {
+    if(currentModalDay === null) return;
+    delete state.logs[currentModalDay];
+    saveState();
+    renderAll();
+    closeModal();
+  });
+
+  document.getElementById('logTodayBtn').addEventListener('click', () => {
+    const todayIdx = Math.max(0, Math.min(TOTAL_DAYS-1, dayIndexToday()));
+    openModal(todayIdx);
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if(confirm('Reset this quest? This clears all logged days and song names.')){
+      state = {
+        startDate: new Date().toISOString().slice(0,10),
+        songs: DEFAULT_SONGS.slice(),
+        logs: {}
+      };
+      saveState();
+      renderAll();
+    }
+  });
+
+  function renderAll(){
+    renderSongs();
+    renderProgress();
+    renderGrid();
+  }
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
