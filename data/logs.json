@@ -48,6 +48,16 @@
         "time": 10,
         "note": "Practiced before my meetings. I'm getting better at transitioning between chords! but fingers are painful.",
         "ts": "2026-09-16T15:06:01.234Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 15,
+        "note": "practiced Em, D, G, C. Won't start Bm yet since it's too different than the common chords.",
+        "ts": "2026-09-16T18:09:42.778Z"
       }
     ]
   }
