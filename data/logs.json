@@ -58,6 +58,16 @@
         "time": 15,
         "note": "practiced Em, D, G, C. Won't start Bm yet since it's too different than the common chords.",
         "ts": "2026-09-16T18:09:42.778Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 10,
+        "note": "Getting even better with transitions between Em, G, D, C. Practicing C hand shape a bit more.",
+        "ts": "2026-09-16T20:33:16.767Z"
       }
     ]
   }
