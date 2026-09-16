@@ -489,6 +489,14 @@
     background:none;border:none;color:var(--ink-soft);text-decoration:underline;cursor:pointer;font-family:inherit;font-size:inherit;
   }
 
+  .credit{
+    text-align:center;
+    margin-top: 24px;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+  }
+  .credit a{ color: var(--gold-deep); text-decoration:underline; }
+
   @media (max-width:600px){
     .grid{grid-template-columns: repeat(7,1fr);}
     .day-cell{font-size:0.6rem;}
@@ -523,29 +531,29 @@
   <div class="section-title"><span>Your Toolkit</span><div class="rule"></div></div>
   <div class="toolkit">
     <div class="toolkit-card">
-      <span class="tag">vs. Procrastination — Quicksand</span>
+      <span class="tag">vs. Procrastination: Quicksand</span>
       <h3>Build the muscle on tiny stuff</h3>
       <p>Some days the win is just picking up the guitar for 60 seconds. That's enough. Momentum starts smaller than you think.</p>
     </div>
     <div class="toolkit-card">
-      <span class="tag">vs. Self-doubt — Underdog</span>
+      <span class="tag">vs. Self-doubt: Underdog</span>
       <h3>Compare to day-1 you, not a guitarist</h3>
-      <p>You have zero background — that's the whole point of the story. Practice hungry for your own respect, not applause.</p>
+      <p>You have zero background; that's the whole point of the story. Practice hungry for your own respect, not applause.</p>
     </div>
     <div class="toolkit-card">
-      <span class="tag">vs. Not enough time — Eleventh hour</span>
+      <span class="tag">vs. Not enough time: Eleventh hour</span>
       <h3>Lower the bar, just do 5 minutes</h3>
       <p>A messy 5-minute shitty-first-draft session still counts as a logged day. Get excited by the challenge, not the clock.</p>
     </div>
     <div class="toolkit-card">
-      <span class="tag">vs. Distraction — Siren song</span>
+      <span class="tag">vs. Distraction: Siren song</span>
       <h3>Go full Ulysses</h3>
       <p>Leave the guitar out in plain sight, put your phone in another room before you sit down. Remove the choice entirely.</p>
     </div>
     <div class="toolkit-card">
-      <span class="tag">vs. Perfectionism — Treasure</span>
+      <span class="tag">vs. Perfectionism: Treasure</span>
       <h3>The roughest of rough maps is fine</h3>
-      <p>A rough, recognizable version of each song by day 100 is the actual goal. Big treasure — one perfect performance — is a lie.</p>
+      <p>A rough, recognizable version of each song by day 100 is the actual goal. Big treasure, one perfect performance, is a lie.</p>
     </div>
   </div>
 
@@ -559,6 +567,8 @@
     <button id="resetBtn">reset this quest</button>
     <input type="file" id="importFile" accept="application/json" style="display:none;">
   </div>
+
+  <div class="credit">Inspired by <a href="https://www.youtube.com/watch?v=vfHlp4xd-aU" target="_blank" rel="noopener">Struthless</a>; thank you for the framework and the kick to start.</div>
 </div>
 
 <div class="modal-backdrop" id="modalBackdrop">
@@ -575,7 +585,7 @@
         <label for="modalTime">Time practiced (minutes, optional)</label>
         <input type="number" id="modalTime" min="0" step="1" placeholder="e.g. 20">
       </div>
-      <textarea id="modalNote" placeholder="Optional note — what did you work on?"></textarea>
+      <textarea id="modalNote" placeholder="Optional note: what did you work on?"></textarea>
       <div class="modal-actions">
         <button class="btn btn-ghost" id="modalCancelEditBtn" hidden>Cancel edit</button>
         <button class="btn btn-primary" id="modalSaveBtn">Add entry</button>
@@ -594,7 +604,7 @@
   const OWNER_KEY = 'guitar100_isOwner';
   const PUBLIC_DATA_URL = 'data/logs.json';
   const TOTAL_DAYS = 100;
-  const DEFAULT_SONGS = ["Won't Back Down — Tom Petty", "Smells Like Teen Spirit — Nirvana", "Can't Stop — Red Hot Chili Peppers"];
+  const DEFAULT_SONGS = ["Won't Back Down - Tom Petty", "Smells Like Teen Spirit - Nirvana", "Can't Stop - Red Hot Chili Peppers"];
 
   // dayIndex(string) -> array of entries: {songs:[bool,bool,bool], time:number|null, note:string, ts:ISOString}
 
@@ -747,7 +757,7 @@
 
     const btn = document.getElementById('logTodayBtn');
     if(hasActivity(state.logs[todayIdx])){
-      btn.textContent = "Today logged ✓ — add another entry";
+      btn.textContent = "Today logged ✓; add another entry";
     } else {
       btn.textContent = "Log today's practice";
     }
@@ -962,7 +972,7 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      alert('Downloaded logs.json — send it over (or tell Claude) to replace data/logs.json in the repo and push, so the live site updates.');
+      alert('Downloaded logs.json; send it over (or tell Claude) to replace data/logs.json in the repo and push, so the live site updates.');
     }catch(e){
       alert('Could not create logs.json: ' + e.message);
     }
