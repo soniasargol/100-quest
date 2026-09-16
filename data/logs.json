@@ -26,6 +26,28 @@
         "time": 5,
         "note": "C is the most challenging one, and transition between chords needs work",
         "ts": "2026-09-15T23:19:11.189Z"
+      },
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 10,
+        "note": "practiced transitioning between chords",
+        "ts": "2026-09-16T14:45:45.024Z"
+      }
+    ],
+    "1": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 10,
+        "note": "Practiced before my meetings. I'm getting better at transitioning between chords! but fingers are painful.",
+        "ts": "2026-09-16T15:06:01.234Z"
       }
     ]
   }
