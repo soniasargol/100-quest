@@ -627,6 +627,11 @@
       params.delete('edit');
       const clean = location.pathname + (params.toString() ? '?' + params.toString() : '') + location.hash;
       history.replaceState(null, '', clean);
+    } else if(params.get('view') === '1'){
+      try{ localStorage.removeItem(OWNER_KEY); }catch(e){}
+      params.delete('view');
+      const clean = location.pathname + (params.toString() ? '?' + params.toString() : '') + location.hash;
+      history.replaceState(null, '', clean);
     }
     try{ return localStorage.getItem(OWNER_KEY) === '1'; }catch(e){ return false; }
   }
