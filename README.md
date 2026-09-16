@@ -4,7 +4,7 @@ A personal 100-day practice tracker: three songs, zero prior background, one sma
 
 Live site: https://soniasargol.github.io/100-quest/
 
-Inspired by [Struthless's "100 days, one skill"](https://www.youtube.com/watch?v=vfHlp4xd-aU) framework.
+Inspired by Struthless's ["Transform your life in 100 days"](https://www.youtube.com/watch?v=vfHlp4xd-aU) framework.
 
 ## How it works
 
@@ -33,4 +33,4 @@ Then open http://localhost:8000 in a browser.
 
 ## Credit
 
-Song-tracking structure and "vs. procrastination / self-doubt / etc." framing borrowed from [Struthless's video](https://www.youtube.com/watch?v=vfHlp4xd-aU) on 100-day skill challenges.
+Song-tracking structure and "vs. procrastination / self-doubt / etc." framing borrowed from Struthless's video ["Transform your life in 100 days"](https://www.youtube.com/watch?v=vfHlp4xd-aU).
