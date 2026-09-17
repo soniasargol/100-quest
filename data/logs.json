@@ -1,9 +1,9 @@
 {
   "startDate": "2026-09-15",
   "songs": [
-    "Won't Back Down - Tom Petty",
-    "Smells Like Teen Spirit - Nirvana",
-    "Can't Stop - Red Hot Chili Peppers"
+    "Won't Back Down — Tom Petty",
+    "Smells Like Teen Spirit — Nirvana",
+    "Can't Stop — Red Hot Chili Peppers"
   ],
   "logs": {
     "0": [
@@ -78,6 +78,18 @@
         "time": 20,
         "note": "I have to learn Bm anyway so practiced the chord shape a little bit, but fingers are very painful.. might take a break and continue tomorrow",
         "ts": "2026-09-17T04:07:43.611Z"
+      }
+    ],
+    "2": [
+      {
+        "songs": [
+          true,
+          false,
+          true
+        ],
+        "time": 20,
+        "note": "Oh how difficult it is to change from C to G to D... It's not easy!!!!!!! Ok I'm calm :) But it was a fun practice",
+        "ts": "2026-09-17T19:01:34.199Z"
       }
     ]
   }
