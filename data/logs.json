@@ -90,6 +90,26 @@
         "time": 20,
         "note": "Oh how difficult it is to change from C to G to D... It's not easy!!!!!!! Ok I'm calm :) But it was a fun practice",
         "ts": "2026-09-17T19:01:34.199Z"
+      },
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 20,
+        "note": "chord change challenging still. change to and from C is not there yet.",
+        "ts": "2026-09-18T02:15:59.519Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 25,
+        "note": "I've forgotten about Bm for now and just focusing on Em, D, C",
+        "ts": "2026-09-18T02:16:27.326Z"
       }
     ]
   }
