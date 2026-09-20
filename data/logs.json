@@ -123,6 +123,40 @@
         "note": "Practiced Marty Schwartz's Won't back down guitar lesson and it made it so much easier to learn the song!! He's such a good tutor! I'm almost done with learning the main part of the song and it sounds so good.",
         "ts": "2026-09-19T02:37:56.419Z"
       }
+    ],
+    "4": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 20,
+        "note": "Practiced I won't back down a bit more. Here's a recording on YouTube https://youtu.be/5AuI_vXudq4",
+        "ts": "2026-09-20T01:43:50.565Z"
+      }
+    ],
+    "5": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 45,
+        "note": "Practicing C and G in the chorus a little more",
+        "ts": "2026-09-20T22:50:47.192Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 10,
+        "note": "Practiced the intro to Can't stop, needs a lot more practice. Also will look at barre chords",
+        "ts": "2026-09-20T22:51:39.767Z"
+      }
     ]
   }
 }
