@@ -167,6 +167,18 @@
         "note": "C is the most challenging chord. Also changing chords needs a lot more work to sound clean.",
         "ts": "2026-09-21T02:54:11.825Z"
       }
+    ],
+    "6": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 20,
+        "note": "practicing the complete song including chorus and verse",
+        "ts": "2026-09-21T19:09:49.474Z"
+      }
     ]
   }
 }
