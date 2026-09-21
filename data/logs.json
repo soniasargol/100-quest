@@ -156,6 +156,16 @@
         "time": 10,
         "note": "Practiced the intro to Can't stop, needs a lot more practice. Also will look at barre chords",
         "ts": "2026-09-20T22:51:39.767Z"
+      },
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 30,
+        "note": "C is the most challenging chord. Also changing chords needs a lot more work to sound clean.",
+        "ts": "2026-09-21T02:54:11.825Z"
       }
     ]
   }
