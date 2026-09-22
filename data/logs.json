@@ -178,6 +178,26 @@
         "time": 20,
         "note": "practicing the complete song including chorus and verse",
         "ts": "2026-09-21T19:09:49.474Z"
+      },
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 60,
+        "note": "learning new D to G that doesn't move all the fingers.",
+        "ts": "2026-09-22T18:39:41.302Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 20,
+        "note": "Marty Schwartz video is pretty good, practiced the main riff",
+        "ts": "2026-09-22T18:41:53.968Z"
       }
     ]
   }
