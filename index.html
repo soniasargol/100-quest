@@ -744,9 +744,13 @@
     const totalMinutes = Object.values(state.logs).reduce((sum, entries) => sum + totalMinutesForDay(entries), 0);
     document.getElementById('totalTimeNum').textContent = formatMinutes(totalMinutes);
 
-    // streak: consecutive days up to and including today with activity
+    // streak: consecutive days with activity, walking back from today.
+    // Today doesn't break the streak until it's actually over, so if it
+    // has no entry yet we start counting from yesterday instead.
     let streak = 0;
-    for(let i = todayIdx; i >= 0; i--){
+    let streakIdx = todayIdx;
+    if(!hasActivity(state.logs[streakIdx])) streakIdx--;
+    for(let i = streakIdx; i >= 0; i--){
       if(hasActivity(state.logs[i])) streak++;
       else break;
     }
