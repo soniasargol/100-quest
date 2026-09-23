@@ -199,6 +199,18 @@
         "note": "Marty Schwartz video is pretty good, practiced the main riff",
         "ts": "2026-09-22T18:41:53.968Z"
       }
+    ],
+    "7": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 15,
+        "note": "practiced D to G a bit more, and the whole song.",
+        "ts": "2026-09-23T14:42:55.927Z"
+      }
     ]
   }
 }
