@@ -223,6 +223,28 @@
         "note": "just playing the chords. I also reached out to a guitar teacher and start guitar sessions tomorrow!! 😎",
         "ts": "2026-09-24T21:55:57.209Z"
       }
+    ],
+    "9": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 15,
+        "note": "practice D and C by finding the correct shape of notes instead of randomly putting fingers down.",
+        "ts": "2026-09-25T03:32:19.029Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 15,
+        "note": "practicing the main riff without muting with tempo",
+        "ts": "2026-09-25T03:33:56.135Z"
+      }
     ]
   }
 }
