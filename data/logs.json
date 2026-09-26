@@ -255,6 +255,18 @@
         "note": "Practiced in the class! will practice more at home too.",
         "ts": "2026-09-25T03:36:27.730Z"
       }
+    ],
+    "10": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 10,
+        "note": "I basically just picked up the guitar today. Work kept me busy for the most part.",
+        "ts": "2026-09-26T18:30:13.788Z"
+      }
     ]
   }
 }
