@@ -279,6 +279,38 @@
         "note": "I'm much better in sounding chords D and G, practiced transition from D to C as well. But mostly busy with work again.",
         "ts": "2026-09-27T07:06:28.400Z"
       }
+    ],
+    "12": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 45,
+        "note": "practiced D to C. C point finger is problematic. Practiced D to G to C. It's better sounding, not smooth transition though.",
+        "ts": "2026-09-28T04:45:23.851Z"
+      },
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 20,
+        "note": "Practiced the main riff. It's difficult to hold the E and A and D strings but it's getting better with practice. Also read more about Kurt Cobain's life. It was mostly sad..",
+        "ts": "2026-09-28T04:47:22.797Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 30,
+        "note": "Practiced the starting riff a good amount. I got better and then a bit worse with practice; can't find the strings sometimes when strumming. But overall much better than before.",
+        "ts": "2026-09-28T04:48:06.492Z"
+      }
     ]
   }
 }
