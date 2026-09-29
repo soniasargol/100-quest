@@ -311,6 +311,18 @@
         "note": "Practiced the starting riff a good amount. I got better and then a bit worse with practice; can't find the strings sometimes when strumming. But overall much better than before.",
         "ts": "2026-09-28T04:48:06.492Z"
       }
+    ],
+    "13": [
+      {
+        "songs": [
+          true,
+          false,
+          true
+        ],
+        "time": 30,
+        "note": "Practiced C, D. Main riff of Can't stop.",
+        "ts": "2026-09-29T05:26:10.919Z"
+      }
     ]
   }
 }
