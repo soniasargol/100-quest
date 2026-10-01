@@ -347,6 +347,28 @@
         "note": "a tiny bit of practice and some practice for the class tomorrow",
         "ts": "2026-10-01T15:43:05.474Z"
       }
+    ],
+    "16": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 15,
+        "note": "Practice C and D a bit more and it's so much better than day 1! Practiced the whole song as well",
+        "ts": "2026-10-01T15:44:54.228Z"
+      },
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 15,
+        "note": "I'm almost done with learning the whole song!! Practiced the power chords and the single notes",
+        "ts": "2026-10-01T15:45:39.792Z"
+      }
     ]
   }
 }
