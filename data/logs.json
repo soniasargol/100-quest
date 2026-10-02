@@ -368,6 +368,26 @@
         "time": 15,
         "note": "I'm almost done with learning the whole song!! Practiced the power chords and the single notes",
         "ts": "2026-10-01T15:45:39.792Z"
+      },
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 20,
+        "note": "I can play the song much better than the first week. Here's a recording of today's practice https://youtu.be/aTKqNDg_Uog",
+        "ts": "2026-10-02T01:49:37.011Z"
+      },
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 15,
+        "note": "Thicker strings are trickier to play for sure. Also space between fingers need more work. I'l practice the spider move more.",
+        "ts": "2026-10-02T01:50:51.694Z"
       }
     ]
   }
