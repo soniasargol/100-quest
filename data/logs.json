@@ -389,6 +389,30 @@
         "note": "Thicker strings are trickier to play for sure. Also space between fingers need more work. I'l practice the spider move more.",
         "ts": "2026-10-02T01:50:51.694Z"
       }
+    ],
+    "17": [
+      {
+        "songs": [
+          true,
+          true,
+          false
+        ],
+        "time": 15,
+        "note": "Practiced C and D a bit more.",
+        "ts": "2026-10-05T04:27:24.706Z"
+      }
+    ],
+    "18": [
+      {
+        "songs": [
+          true,
+          true,
+          false
+        ],
+        "time": 25,
+        "note": "D is still the most challenging chord.",
+        "ts": "2026-10-05T04:27:55.293Z"
+      }
     ]
   }
 }
