@@ -485,6 +485,28 @@
         "note": "Guitar class was so much fun! I played an electric guitar for the first time and I loved it. I'll buy one soon! I'm good at the beginner version of \"Smells Like Teen Spirit\"",
         "ts": "2026-10-10T05:30:04.163Z"
       }
+    ],
+    "25": [
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 30,
+        "note": "Practiced the pro version of the chord and muting for the first time.",
+        "ts": "2026-10-11T05:24:30.378Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          false
+        ],
+        "time": 30,
+        "note": "take me home coutry roads, end of the line by Travelling Wilburys",
+        "ts": "2026-10-11T05:24:48.927Z"
+      }
     ]
   }
 }
