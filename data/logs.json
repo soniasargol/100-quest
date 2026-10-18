@@ -607,6 +607,50 @@
         "note": "Wish you were here, Take me home country roads, and the class practices",
         "ts": "2026-10-16T04:03:38.756Z"
       }
+    ],
+    "31": [
+      {
+        "songs": [
+          true,
+          true,
+          false
+        ],
+        "time": 15,
+        "note": "",
+        "ts": "2026-10-18T04:42:21.397Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          false
+        ],
+        "time": 15,
+        "note": "Wish You Were Here",
+        "ts": "2026-10-18T04:42:32.925Z"
+      }
+    ],
+    "32": [
+      {
+        "songs": [
+          true,
+          false,
+          false
+        ],
+        "time": 10,
+        "note": "Slowed down 30bpm the chords so I'm more accurate. C and D were not clean before. They got better.",
+        "ts": "2026-10-18T04:43:43.517Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          false
+        ],
+        "time": 30,
+        "note": "Wish You Were Here, slowed down version",
+        "ts": "2026-10-18T04:44:02.746Z"
+      }
     ]
   }
 }
