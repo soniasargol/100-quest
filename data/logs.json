@@ -651,6 +651,72 @@
         "note": "Wish You Were Here, slowed down version",
         "ts": "2026-10-18T04:44:02.746Z"
       }
+    ],
+    "33": [
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 25,
+        "note": "Country Roads Take Me Home, practicing playing basic chords correctly, slowed down",
+        "ts": "2026-10-21T05:10:29.609Z"
+      }
+    ],
+    "34": [
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 10,
+        "note": "",
+        "ts": "2026-10-21T05:10:47.363Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          false
+        ],
+        "time": 30,
+        "note": "Wish You Were Here",
+        "ts": "2026-10-21T05:11:07.488Z"
+      }
+    ],
+    "35": [
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 15,
+        "note": "",
+        "ts": "2026-10-21T05:11:28.021Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          false
+        ],
+        "time": 20,
+        "note": "Take Me Home Country Roads",
+        "ts": "2026-10-21T05:11:49.225Z"
+      },
+      {
+        "songs": [
+          false,
+          false,
+          false
+        ],
+        "time": 20,
+        "note": "Wish You Were Here",
+        "ts": "2026-10-21T05:11:58.608Z"
+      }
     ]
   }
 }
