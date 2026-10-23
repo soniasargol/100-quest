@@ -717,6 +717,30 @@
         "note": "Wish You Were Here",
         "ts": "2026-10-21T05:11:58.608Z"
       }
+    ],
+    "36": [
+      {
+        "songs": [
+          false,
+          true,
+          false
+        ],
+        "time": 45,
+        "note": "+ Take Me Home Country Roads + Wish You Were Here. Hand pain:( couldn't practice more. Need to mix up strumming and finger picking and take more frequent breaks.",
+        "ts": "2026-10-23T04:31:45.529Z"
+      }
+    ],
+    "37": [
+      {
+        "songs": [
+          false,
+          false,
+          false
+        ],
+        "time": 30,
+        "note": "Wish You Were Here + Landslide Fleetwood Mac finger picking for the first time:)",
+        "ts": "2026-10-23T04:33:41.607Z"
+      }
     ]
   }
 }
