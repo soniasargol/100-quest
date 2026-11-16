@@ -1025,6 +1025,30 @@
         "note": "+ Take me home country roads + We never dated",
         "ts": "2026-11-14T17:42:56.099Z"
       }
+    ],
+    "60": [
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 20,
+        "note": "",
+        "ts": "2026-11-16T15:27:06.033Z"
+      }
+    ],
+    "61": [
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 45,
+        "note": "Made so much progress on the muting of the main riff :)",
+        "ts": "2026-11-16T15:26:39.579Z"
+      }
     ]
   }
 }
