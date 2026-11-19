@@ -1049,6 +1049,42 @@
         "note": "Made so much progress on the muting of the main riff :)",
         "ts": "2026-11-16T15:26:39.579Z"
       }
+    ],
+    "62": [
+      {
+        "songs": [
+          false,
+          true,
+          true
+        ],
+        "time": 40,
+        "note": "",
+        "ts": "2026-11-19T05:19:56.193Z"
+      }
+    ],
+    "63": [
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 60,
+        "note": "",
+        "ts": "2026-11-19T05:19:45.126Z"
+      }
+    ],
+    "64": [
+      {
+        "songs": [
+          false,
+          false,
+          true
+        ],
+        "time": 45,
+        "note": "",
+        "ts": "2026-11-19T05:19:35.101Z"
+      }
     ]
   }
 }
